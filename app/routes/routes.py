@@ -25,7 +25,8 @@ def crear_producto():
         existe_producto = Producto.query.filter_by(name=name).first()
 
         if existe_producto:
-            return jsonify(respuesta='Producto ya existe'), 400
+            return producto_schema.jsonify(existe_producto)
+            #return jsonify(respuesta='Producto ya existe'), 400
 
         nuevo_producto = Producto(name, amount)
 
@@ -42,10 +43,10 @@ def crear_producto():
 def obtener_producto():
     try:
         # obtener producto
-        nombre = request.json.get('name')
-        print (nombre)
-        producto = Producto.query(productos.name).filter(productos)
+        name = request.json.get('name')
+        print (name)
+        producto = Producto.query.filter_by(name=name).first()
         print(producto)
-        return jsonify(producto), 200
+        return producto_schema.jsonify(producto), 200
     except Exception:
         return jsonify(respuesta='Error en Peticion'), 500
